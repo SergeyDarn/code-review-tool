@@ -31,24 +31,34 @@ export default class CodeReviewStorage {
     }
 
 
-    public static addReview(
-        reviewId: CodeReviewId,
-        review: CodeReview = getEmptyCodeReview()
-    ) {
+    public static addReview(reviewId: CodeReviewId) {
+        this.setReview({
+            ...getEmptyCodeReview(),
+            id: reviewId
+        });
+    }
+
+    public static setReview(review: CodeReview) {
         const reviewsIds = this.getReviewIds();
         const reviews = this.getReviews();
 
-        reviewsIds.push(reviewId);
-        reviews[reviewId] = review;
+        reviewsIds.push(review.id);
+        reviews[review.id] = review;
 
         this.setReviewsIds(reviewsIds);
         this.setReviews(reviews);
     }
 
-    public static hasReview(reviewId: CodeReviewId) {
+    public static hasReview(reviewId: CodeReviewId): boolean {
         const reviewsIds = this.getReviewIds();
 
         return reviewsIds.includes(reviewId);
+    }
+
+    public static getReview(reviewId: CodeReviewId): CodeReview | null {
+        const reviews = this.getReviews();
+
+        return reviews[reviewId] || null;
     }
 
     public static removeReview(reviewId: CodeReviewId) {

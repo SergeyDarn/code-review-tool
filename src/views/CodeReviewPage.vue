@@ -1,5 +1,9 @@
 <template>
-    Code review page {{ reviewId }}
+    <div class="code-review-page">
+        <CodeReview
+            :review="review"
+        />
+    </div>
 </template>
 
 
@@ -24,7 +28,12 @@ export default {
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
+import type { CodeReview as ICodeReview } from '@/abstracts';
+
+import CodeReview from '@/components/CodeReview.vue';
 
 const route = useRoute();
 const reviewId = route.params.reviewId as string
+
+const review = CodeReviewStorage.getReview(reviewId) as ICodeReview;
 </script>
