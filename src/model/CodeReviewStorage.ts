@@ -32,6 +32,9 @@ export default class CodeReviewStorage {
 
 
     public static addReview(reviewId: CodeReviewId) {
+        const reviewsIds = this.getReviewIds();
+
+        this.setReviewsIds([...reviewsIds, reviewId]);
         this.setReview({
             ...getEmptyCodeReview(),
             id: reviewId
@@ -39,14 +42,12 @@ export default class CodeReviewStorage {
     }
 
     public static setReview(review: CodeReview) {
-        const reviewsIds = this.getReviewIds();
         const reviews = this.getReviews();
 
-        reviewsIds.push(review.id);
-        reviews[review.id] = review;
-
-        this.setReviewsIds(reviewsIds);
-        this.setReviews(reviews);
+        this.setReviews({
+            ...reviews,
+            [review.id]: review
+        });
     }
 
     public static hasReview(reviewId: CodeReviewId): boolean {
