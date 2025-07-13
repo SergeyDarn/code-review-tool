@@ -57,6 +57,7 @@
                 </label>
             </FloatLabel>
 
+            <!-- TODO: create code component -->
             <FloatLabel
                 class="comment-item__code-wrapper"
                 variant="on"
