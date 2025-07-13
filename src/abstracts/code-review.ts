@@ -10,24 +10,24 @@ export interface CodeReviewBase {
 }
 
 export interface Comment {
-    id: string
     type: CommentType
+    name: string
+
     file: string
-    badCode: string
     comment: string
-    goodCode?: string
+    badCode: string
+    goodCode: string
+
+    created: string
+    updated: string
 }
 
 export enum CommentType {
-    major = 'major',
     minor = 'minor',
 
     architecture = 'architecture',
-    optimization = 'optimization',
-    readability = 'readability',
     codeStyle = 'codeStyle',
-
+    optimization = 'optimization',
     question = 'question',
 }
-
 

@@ -1,6 +1,6 @@
 import type { CodeReview, CodeReviewId, Storage, StoredCodeReviews } from '@/abstracts';
 import StorageProvider from './StorageProvider';
-import getEmptyCodeReview from '@/data/empty-code-review';
+import { getNewCodeReview } from '@/utils/new-review';
 
 export default class CodeReviewStorage {
     private static REVIEWS_IDS_KEY = 'CODE_REVIEWS_IDS';
@@ -20,25 +20,25 @@ export default class CodeReviewStorage {
         this.getStorage().setItem(this.REVIEWS_IDS_KEY, reviewsIds)
     }
 
-    private static getReviews(): StoredCodeReviews {
-        const reviews = this.getStorage().getItem<StoredCodeReviews>(this.REVIEWS_KEY, true)
-
-        return reviews || {};
-    }
-
     private static setReviews(reviews: StoredCodeReviews) {
         this.getStorage().setItem(this.REVIEWS_KEY, reviews)
     }
 
 
-    public static addReview(reviewId: CodeReviewId) {
-        const reviewsIds = this.getReviewIds();
+    public static getReviews(): StoredCodeReviews {
+        const reviews = this.getStorage().getItem<StoredCodeReviews>(this.REVIEWS_KEY, true)
 
-        this.setReviewsIds([...reviewsIds, reviewId]);
-        this.setReview({
-            ...getEmptyCodeReview(),
-            id: reviewId
-        });
+        return reviews || {};
+    }
+
+    public static createNewReview(): CodeReviewId {
+        const reviewsIds = this.getReviewIds();
+        const newReview = getNewCodeReview();
+
+        this.setReviewsIds([...reviewsIds, newReview.id]);
+        this.setReview(newReview);
+
+        return newReview.id;
     }
 
     public static setReview(review: CodeReview) {
@@ -66,14 +66,14 @@ export default class CodeReviewStorage {
         let reviewsIds = this.getReviewIds();
         const reviews = this.getReviews();
 
-        if (!reviewsIds.length || Object.keys(reviews).length) {
+        if (!reviewsIds.length || !Object.keys(reviews).length) {
             return;
         }
 
         reviewsIds = reviewsIds.filter(id => id != reviewId);
-        delete reviews[reviewId]
+        delete reviews[reviewId];
 
-        this.setReviewsIds(reviewsIds)
-        this.setReviews(reviews)
+        this.setReviewsIds(reviewsIds);
+        this.setReviews(reviews);
     }
 }

@@ -1,0 +1,24 @@
+@mixin input-without-border() {
+  --p-inputtext-background: transparent;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 0;
+ 
+  &:enabled:focus {
+    outline: none;
+  }
+}
+
+@mixin label-top() {
+  top: 0;
+  background: var(--p-floatlabel-on-active-background);
+  padding: var(--p-floatlabel-on-active-padding);
+
+  font-size: var(--p-floatlabel-active-font-size);
+  font-weight: var(--p-floatlabel-active-font-weight);
+
+  border-radius: var(--p-floatlabel-on-border-radius);
+  transform: translateY(-50%);
+}

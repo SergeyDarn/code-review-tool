@@ -3,15 +3,15 @@
         <div class="code-review-list__list">
             <CodeReviewItem
                 v-for="review in props.reviews"
+                class="code-review-list__item"
                 :review="review"
                 :key="`CodeReview{review.id}`"
             />
         </div>
 
         <Button 
-            class="code-review-list__new"
-            label="Start new review" 
-            size="large"
+            class="code-review-list__new-review"
+            label="Начать новое ревью" 
             @click="startReview"
         />
     </div>
@@ -45,10 +45,14 @@ function startReview() {
 
 <style lang="scss" scoped>
     .code-review-list {
-        &__new {
+        &__new-review {
             --p-button-lg-font-size: 24px;
 
-            margin-top: var(--spacing);
+            width: 250px;
+        }
+
+        &__item {
+            margin-bottom: var(--spacing);
         }
     }
 </style>

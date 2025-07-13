@@ -1,22 +1,19 @@
 import { Page } from '@/abstracts';
 
-import { v4 as uuidv4 } from 'uuid';
 import CodeReviewStorage from './CodeReviewStorage';
 
 export default class CodeReview {
-    private static createReviewId(): string {
-        return uuidv4();
-    }
+    private static DEFAULT_REVIEW_TITLE = 'Ревью без названия'
 
     public static startReview(): string {
-        const reviewId = this.createReviewId();
-
-        CodeReviewStorage.addReview(reviewId);
-
-        return reviewId;
+        return CodeReviewStorage.createNewReview();
     }
 
-    public static getReviewPage(reviewId: string) {
+    public static getReviewPage(reviewId: string): string {
         return `${Page.codeReview}/${reviewId}`
+    }
+
+    public static getDefaultReviewTitle(): string {
+        return this.DEFAULT_REVIEW_TITLE;
     }
 }

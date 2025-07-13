@@ -7,8 +7,10 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style lang="scss">
+    @use '@/styles/main';
+
     body {
-        margin: 20px 0;
+        margin: var(--spacing);
 
         background-color: var(--background-color);
         color: var(--text-color);
@@ -17,7 +19,7 @@ import { RouterLink, RouterView } from 'vue-router'
     }
 
     .app {
-        max-width: 960px;
+        max-width: var(--app-max-width);
         margin: 0 auto;
     }
 </style>

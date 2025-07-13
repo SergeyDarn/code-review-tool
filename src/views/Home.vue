@@ -1,22 +1,22 @@
 <template>
     <div class="home">
         <div class="home__title">
-            Code review
+            Код-ревью  
         </div>
 
-        <CodeReviewList :reviews="codeReviews" />
+        <CodeReviewList
+            class="home__reviews"
+            :reviews="codeReviews"
+        />
     </div>
 </template>
 
 <script setup lang="ts">
+import type { CodeReview } from '@/abstracts';
 import CodeReviewList from '@/components/CodeReviewList.vue';
-import codeReviews from '@/data/code-reviews';
+import CodeReviewStorage from '@/model/CodeReviewStorage';
 
-
-// Code Review List
-// Code Review Short Item (with link)
-
-// Code Review Extended Item (separate page)
+const codeReviews = Object.values(CodeReviewStorage.getReviews()) as CodeReview[];
 </script>
 
 <style lang="scss">
