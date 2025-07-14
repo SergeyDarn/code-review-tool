@@ -10,6 +10,7 @@ export interface CodeReviewBase {
 }
 
 export interface Comment {
+    id: string
     type: CommentType
     name: string
 
@@ -29,5 +30,11 @@ export enum CommentType {
     codeStyle = 'codeStyle',
     optimization = 'optimization',
     question = 'question',
+}
+
+export interface CommentTypeView {
+    type: CommentType,
+    label: string,
+    color: string
 }
 

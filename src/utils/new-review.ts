@@ -16,6 +16,7 @@ export function getNewComment(): Comment {
 
     return {
         name: '',
+        id: uuidv4(),
         type: CommentType.minor,
         file: '',
         badCode: '',

@@ -12,7 +12,7 @@
             />
         
             <InputText 
-                v-model="review.name"
+                v-model="codeReview.name"
                 class="code-review__name" 
                 placeholder="Название для ревью"
                 size="large"
@@ -29,9 +29,13 @@
             />
         </div>
 
+        <div class="code-review__actions">
+            <CommentTypeFilters />     
+        </div>
+
         <CommentList
             class="code-review__comments"
-            :comments="review.comments"
+            :comments="processedComments"
             @add-comment="addComment"
             @update-comment="updateComment"
             @delete-comment="deleteComment"
@@ -40,57 +44,42 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { Page, type CodeReview, type Comment } from '@/abstracts';
-
-import CodeReviewStorage from '@/model/CodeReviewStorage';
+import { Page } from '@/abstracts';
 
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import CommentList from './CommentList.vue';
-import ObjectUtils from '@/utils/object-utils';
 
-interface Props {
-    review: CodeReview
-}
+import CodeReviewStorage from '@/model/CodeReviewStorage';
+import CommentTypeFilters from '@/components/CommentTypeFilters.vue';
+import useCodeReviewStore from '@/store/use-code-review-store';
 
 const router = useRouter();
-const props = defineProps<Props>();
-const review = ref<CodeReview>(
-    ObjectUtils.copyObject(props.review)
-);
+
+const {
+    codeReview,
+    processedComments,
+
+    addComment,
+    updateComment,
+    deleteComment
+} = useCodeReviewStore();
 
 function deleteReview() {
-    CodeReviewStorage.removeReview(review.value.id);
+    CodeReviewStorage.removeReview(codeReview.value.id);
     goHome(); 
 }
-
-function addComment(comment: Comment) {
-    review.value.comments = [ comment, ...review.value.comments ];
-}
-
-function updateComment(comment: Comment, index: number) {
-    review.value.comments[index] = {
-        ...comment,
-        updated: new Date().toString()
-    };
-}
-
-function deleteComment(index: number) {
-    review.value.comments.splice(index, 1);
-}
-
 
 function goHome() {
     router.push(Page.home);
 }
 
-
 const REVIEW_UPDATE_TIMEOUT = 500;
 let reviewUpdateTimeoutId: number | null = null;
 
-watch(review, (updatedReview) => {
+watch(codeReview, (updatedReview) => {
     if (reviewUpdateTimeoutId !== null) {
         clearTimeout(reviewUpdateTimeoutId);
     }
@@ -109,6 +98,10 @@ watch(review, (updatedReview) => {
             position: relative;
 
             display: flex;
+            margin-bottom: calc(var(--spacing) * 2);
+        }
+
+        &__actions {
             margin-bottom: calc(var(--spacing) * 2);
         }
 

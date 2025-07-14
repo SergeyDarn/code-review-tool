@@ -20,9 +20,10 @@
                         v-model="comment.type"
                         class="comment-item__type"
                         option-label="label"
-                        option-value="value"
+                        option-value="type"
                         input-id="commentType"
-                        :options="CommentType.getSelectTypes()"
+                        size="small"
+                        :options="CommentType.getViewItems()"
                     />
 
                     <label class="comment-item__type-label">
@@ -122,7 +123,10 @@
                 </label>
             </FloatLabel>
 
-            <div class="comment-item__buttons">
+            <div
+                v-if="!showComment || !showGoodCode"
+                class="comment-item__buttons"
+            >
                 <Button
                     v-if="!showComment"
                     class="comment-item__button"
@@ -167,7 +171,7 @@ interface Props {
 
 interface Emits {
     update: [comment: Comment]
-    delete: []
+    delete: [comment: Comment]
 }
 
 const props = defineProps<Props>()
@@ -190,17 +194,27 @@ const codeLanguages = computed<string[][]>(() => {
 });
 
 function deleteComment() {
-    emit('delete');
-}
-
-function getCodeTextarea() {
-    return '<textarea id="badCode"></textarea>';
+    emit('delete', comment.value);
 }
 
 watch(comment, (updateComment) => {
     emit('update', updateComment);    
 }, { deep: true });
 </script>
+
+<style lang="scss">
+    .p-select-list {
+        --p-select-list-padding: 5px 0;
+    }
+
+    .p-select-option {
+        --p-select-option-padding: 10px 8px;
+    }
+
+    .p-select-option-label {
+        font-size: 14px;
+    }
+</style>
 
 <style lang="scss" scoped>
     @use '@/styles/mixins' as *;
@@ -271,7 +285,7 @@ watch(comment, (updateComment) => {
         }
 
         &__code {
-            :deep .code-area {
+            :deep(.code-area) {
                 border: 1px solid var(--p-inputtext-border-color);
                 border-radius: var(--p-inputtext-border-radius) !important;
             }

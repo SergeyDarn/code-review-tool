@@ -4,7 +4,7 @@ export default class FileUtils {
             return '';
         }
 
-        const extensionRegexp = /\.(.*)$/
+        const extensionRegexp = /\.(.*?)(((\:.*)|(\?.*)))?$/
         const extensionMatch = file.match(extensionRegexp);
 
         return extensionMatch ? extensionMatch[1] : '';

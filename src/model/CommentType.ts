@@ -1,4 +1,4 @@
-import { CommentType as ICommentType, type SelectItem } from '@/abstracts';
+import { CommentType as ICommentType, type CommentTypeView } from '@/abstracts';
 
 export default class CommentType {
     private static labels: Record<ICommentType, string> = {
@@ -9,15 +9,28 @@ export default class CommentType {
         [ICommentType.question]: 'Вопрос',
     }
 
-    public static getSelectTypes(): SelectItem<ICommentType>[] {
-        return Object.keys(ICommentType)
-            .map((type) => this.typeToSelectItem(type as ICommentType));
+    private static colors: Record<ICommentType, string> = {
+        [ICommentType.architecture]: 'var(--p-rose-500)',
+        [ICommentType.optimization]: 'var(--p-yellow-500)',
+        [ICommentType.codeStyle]: 'var(--p-teal-500)',
+        [ICommentType.minor]: 'var(--p-slate-500)',
+        [ICommentType.question]: 'var(--p-cyan-500)',
     }
 
-    public static typeToSelectItem(type: ICommentType) {
-        return {
-            label: this.labels[type],
-            value: type
-        }
+    private static commentTypes = Object.keys(ICommentType) as ICommentType[];
+
+
+    public static getViewItems(): CommentTypeView[] {
+        return this.commentTypes.map(type => {
+            return {
+                type,
+                color: this.colors[type],
+                label: this.labels[type]
+            }
+        })
+    }
+
+    public static getColor(type: ICommentType) {
+        return this.colors[type];
     }
 }

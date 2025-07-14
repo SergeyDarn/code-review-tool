@@ -1,15 +1,16 @@
 <template>
     <div class="code-review-page">
-        <CodeReview
-            :review="review"
-        />
+        <CodeReview v-if=codeReview />
     </div>
 </template>
 
 
 <script lang="ts">
-import { Page } from '@/abstracts';
+import { Page, type CodeReview as ICodeReview } from '@/abstracts';
 import CodeReviewStorage from '@/model/CodeReviewStorage';
+import useCodeReviewStore from '@/store/use-code-review-store';
+
+const { setCodeReview } = useCodeReviewStore();
 
 export default {
     beforeRouteEnter(to, from, next) {
@@ -18,22 +19,23 @@ export default {
 
         if (!reviewId || !isValidReviewId) {
             next(Page.home);
-            return
+            return;
         }
+        
+        const review = CodeReviewStorage.getReview(reviewId) as ICodeReview;
 
+        setCodeReview(review);
         next();
+    },
+
+    beforeRouteLeave() {
+        setCodeReview(null); 
     }
 }
 </script>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
-import type { CodeReview as ICodeReview } from '@/abstracts';
-
 import CodeReview from '@/components/CodeReview.vue';
 
-const route = useRoute();
-const reviewId = route.params.reviewId as string
-
-const review = CodeReviewStorage.getReview(reviewId) as ICodeReview;
+const { codeReview } = useCodeReviewStore();
 </script>

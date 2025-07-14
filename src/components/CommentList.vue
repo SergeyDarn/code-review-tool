@@ -7,12 +7,12 @@
         />
 
         <CommentItem
-            v-for="(comment, i) in props.comments"
+            v-for="comment in props.comments"
             class="comment-list__comment"
             :comment="comment"
             :key="`Comment${comment.created}`"
-            @update="updateComment($event, i)"
-            @delete="deleteComment(i)"
+            @update="updateComment"
+            @delete="deleteComment"
         />
     </div>
 </template>
@@ -32,8 +32,8 @@ interface Props {
 
 interface Emits {
     'add-comment': [comment: IComment] 
-    'update-comment': [comment: IComment, index: number]
-    'delete-comment': [index: number]
+    'update-comment': [comment: IComment]
+    'delete-comment': [comment: IComment]
 }
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
@@ -42,12 +42,12 @@ function addComment() {
     emit('add-comment', getNewComment())
 }
 
-function updateComment(comment: IComment, index: number) {
-    emit('update-comment', comment, index);
+function updateComment(comment: IComment) {
+    emit('update-comment', comment);
 }
 
-function deleteComment(index: number) {
-    emit('delete-comment', index);
+function deleteComment(comment: IComment) {
+    emit('delete-comment', comment);
 }
 </script>
 
