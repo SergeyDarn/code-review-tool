@@ -18,35 +18,36 @@
 </template>
 
 <script setup lang="ts">
+import type { Comment } from '@/abstracts';
+
+import CommentModel from '@/model/comment';
 
 import Button from 'primevue/button';
 import CommentItem from './CommentItem.vue';
 
-import { getNewComment } from '@/utils/new-review';
-import type { Comment as IComment } from '@/abstracts';
-
 
 interface Props {
-    comments: IComment[];
+    comments: Comment[];
 }
 
 interface Emits {
-    'add-comment': [comment: IComment] 
-    'update-comment': [comment: IComment]
-    'delete-comment': [comment: IComment]
+    'add-comment': [comment: Comment] 
+    'update-comment': [comment: Comment]
+    'delete-comment': [comment: Comment]
 }
+
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
 function addComment() {
-    emit('add-comment', getNewComment())
+    emit('add-comment', CommentModel.getNewComment())
 }
 
-function updateComment(comment: IComment) {
+function updateComment(comment: Comment) {
     emit('update-comment', comment);
 }
 
-function deleteComment(comment: IComment) {
+function deleteComment(comment: Comment) {
     emit('delete-comment', comment);
 }
 </script>

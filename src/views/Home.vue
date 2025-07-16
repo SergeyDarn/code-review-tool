@@ -13,8 +13,10 @@
 
 <script setup lang="ts">
 import type { CodeReview } from '@/abstracts';
+
+import CodeReviewStorage from '@/model/code-review-storage';
+
 import CodeReviewList from '@/components/CodeReviewList.vue';
-import CodeReviewStorage from '@/model/CodeReviewStorage';
 
 const codeReviews = Object.values(CodeReviewStorage.getReviews()) as CodeReview[];
 </script>

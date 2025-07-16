@@ -1,5 +1,5 @@
 import type { Storage } from '@/abstracts';
-import LocalStorage from './LocalStorage';
+import LocalStorage from './local-storage';
 
 export default class StorageProvider {
     private static storage: Storage

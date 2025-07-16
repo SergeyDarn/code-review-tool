@@ -30,6 +30,7 @@ export enum CommentType {
     codeStyle = 'codeStyle',
     optimization = 'optimization',
     question = 'question',
+    goodCode = 'goodCode',
 }
 
 export interface CommentTypeView {

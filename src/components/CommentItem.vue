@@ -150,10 +150,12 @@
 </template>
 
 <script setup lang="ts">
-import { type Comment } from '@/abstracts';
 import { computed, ref, watch } from 'vue';
+import { type Comment } from '@/abstracts';
 
-import ObjectUtils from '@/utils/object-utils';
+import CommentType from '@/model/comment-type';
+import { getExtensionFromFile } from '@/utils/file';
+import { copyObject } from '@/utils/object';
 
 import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
@@ -163,8 +165,6 @@ import Textarea from 'primevue/textarea';
 import 'highlight.js';
 import CodeEditor from 'simple-code-editor';
 
-import CommentType from '@/model/CommentType';
-import FileUtils from '@/utils/file-utils';
 
 interface Props {
     comment: Comment
@@ -180,13 +180,13 @@ const emit = defineEmits<Emits>();
 
 
 const comment = ref<Comment>(
-    ObjectUtils.copyObject(props.comment)
+    copyObject(props.comment)
 );
 const showComment = ref(!!comment.value.comment);
 const showGoodCode = ref(!!comment.value.goodCode);
 
 const fileExtension = computed<string>(() => {
-    return FileUtils.getExtensionFromFile(comment.value.file);
+    return getExtensionFromFile(comment.value.file);
 })
 
 const codeLanguages = computed<string[][]>(() => {

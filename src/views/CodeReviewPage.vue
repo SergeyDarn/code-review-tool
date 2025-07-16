@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { Page, type CodeReview as ICodeReview } from '@/abstracts';
-import CodeReviewStorage from '@/model/CodeReviewStorage';
+import CodeReviewStorage from '@/model/code-review-storage';
 import useCodeReviewStore from '@/store/use-code-review-store';
 
 const { setCodeReview } = useCodeReviewStore();

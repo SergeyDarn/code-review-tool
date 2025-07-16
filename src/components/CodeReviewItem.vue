@@ -1,17 +1,17 @@
 <template>
     <router-link
         class="code-review-item"
-        :to="CodeReview.getReviewPage(props.review.id)"
+        :to="CodeReviewModel.getReviewPage(props.review.id)"
     >
         <div class="code-review-item__name">
-            {{ props.review.name || CodeReview.getDefaultReviewTitle() }}
+            {{ props.review.name || CodeReviewModel.getDefaultReviewTitle() }}
         </div>
     </router-link>
 </template>
 
 <script setup lang="ts">
 import type { CodeReviewBase } from '@/abstracts';
-import CodeReview from '@/model/CodeReview';
+import CodeReviewModel from '@/model/code-review';
 
 interface Props {
     review: CodeReviewBase

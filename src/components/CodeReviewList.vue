@@ -18,14 +18,13 @@
 </template>
 
 <script setup lang="ts">
-import type { CodeReviewBase } from '@/abstracts';
 import { useRouter } from 'vue-router';
+import type { CodeReviewBase } from '@/abstracts';
+
+import CodeReview from '@/model/code-review';
 
 import Button from 'primevue/button';
-
 import CodeReviewItem from './CodeReviewItem.vue';
-import CodeReview from '@/model/CodeReview';
- 
 
 
 interface Props {

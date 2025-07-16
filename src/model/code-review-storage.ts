@@ -1,6 +1,5 @@
 import type { CodeReview, CodeReviewId, Storage, StoredCodeReviews } from '@/abstracts';
-import StorageProvider from './StorageProvider';
-import { getNewCodeReview } from '@/utils/new-review';
+import StorageProvider from './storage-provider';
 
 export default class CodeReviewStorage {
     private static REVIEWS_IDS_KEY = 'CODE_REVIEWS_IDS';
@@ -31,9 +30,8 @@ export default class CodeReviewStorage {
         return reviews || {};
     }
 
-    public static createNewReview(): CodeReviewId {
+    public static addNewReview(newReview: CodeReview): CodeReviewId {
         const reviewsIds = this.getReviewIds();
-        const newReview = getNewCodeReview();
 
         this.setReviewsIds([...reviewsIds, newReview.id]);
         this.setReview(newReview);

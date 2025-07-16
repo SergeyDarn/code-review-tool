@@ -11,21 +11,22 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { CommentType as ICommentType } from '@/abstracts';
+import { CommentType } from '@/abstracts';
+
+import CommentTypeModel from '@/model/comment-type';
+import useCodeReviewStore from '@/store/use-code-review-store';
 
 import CommentTypeList from '@/components/CommentTypeList.vue';
 
-import useCodeReviewStore from '@/store/use-code-review-store';
-import CommentType from '@/model/CommentType';
 
-const types = CommentType.getViewItems();
+const types = CommentTypeModel.getViewItems();
 
 const {
     activeCommentType,
     toggleActiveCommentType
 } = useCodeReviewStore();
 
-const activeCommentTypes = computed<ICommentType[]>(() => {
+const activeCommentTypes = computed<CommentType[]>(() => {
     const type = activeCommentType.value;
  
     return type ? [type] : [];

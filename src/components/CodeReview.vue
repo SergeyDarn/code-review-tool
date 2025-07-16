@@ -48,13 +48,14 @@ import { watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { Page } from '@/abstracts';
 
+import CodeReviewStorage from '@/model/code-review-storage';
+import useCodeReviewStore from '@/store/use-code-review-store';
+
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import CommentList from './CommentList.vue';
-
-import CodeReviewStorage from '@/model/CodeReviewStorage';
 import CommentTypeFilters from '@/components/CommentTypeFilters.vue';
-import useCodeReviewStore from '@/store/use-code-review-store';
+
 
 const router = useRouter();
 
