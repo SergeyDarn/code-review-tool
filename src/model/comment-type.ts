@@ -13,7 +13,7 @@ export default class CommentTypeModel {
     private static colors: Record<CommentType, string> = {
         [CommentType.architecture]: 'var(--p-rose-500)',
         [CommentType.optimization]: 'var(--p-yellow-500)',
-        [CommentType.codeStyle]: 'var(--p-teal-500)',
+        [CommentType.codeStyle]: 'var(--p-indigo-500)',
         [CommentType.minor]: 'var(--p-slate-500)',
         [CommentType.question]: 'var(--p-cyan-500)',
         [CommentType.goodCode]: 'var(--p-green-500)',
