@@ -65,7 +65,7 @@
                 :class="{ '_has-value': comment.badCode }"
             >
                 <CodeEditor
-                    v-model="comment.badCode"
+                    v-model="badCode"
                     class="comment-item__code"
                     width="100%"
                     font-size="12px"
@@ -109,7 +109,7 @@
                 :class="{ '_has-value': comment.goodCode }"
             >
                 <CodeEditor
-                    v-model="comment.goodCode"
+                    v-model="goodCode"
                     class="comment-item__code"
                     width="100%"
                     font-size="12px"
@@ -156,6 +156,7 @@ import { type Comment } from '@/abstracts';
 import CommentType from '@/model/comment-type';
 import { getExtensionFromFile } from '@/utils/file';
 import { copyObject } from '@/utils/object';
+import stripIndent from 'strip-indent';
 
 import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
@@ -193,6 +194,28 @@ const codeLanguages = computed<string[][]>(() => {
     const language = fileExtension.value || 'typescript';
     return [[language]]
 });
+
+const badCode = computed<string>({
+    get() {
+        return comment.value.badCode;
+    },
+
+    set(code: string) {
+        comment.value.badCode = stripIndent(code);
+    }
+});
+
+const goodCode = computed<string>({
+    get() {
+        return comment.value.goodCode;
+    },
+
+    set(code: string) {
+        comment.value.goodCode = stripIndent(code);
+    }
+});
+
+
 
 function deleteComment() {
     emit('delete', comment.value);
