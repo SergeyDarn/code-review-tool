@@ -16,6 +16,7 @@ export default class CommentModel {
             comment: '',
             created: date,
             updated: date,
+            isOpen: true
         }
     }
 }

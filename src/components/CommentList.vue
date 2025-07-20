@@ -1,16 +1,22 @@
 <template>
     <div class="comment-list">
-        <Button
-            class="comment-list__add-comment"
-            label="Добавить комментарий"
-            @click="addComment"
-        />
+        <div class="comment-list__top">
+            <div class="comment-list__count">
+                Всего: {{ props.comments.length }}
+            </div> 
+
+            <Button
+                class="comment-list__add-comment"
+                label="Добавить комментарий"
+                @click="addComment"
+            />
+        </div>
 
         <CommentItem
             v-for="comment in props.comments"
             class="comment-list__comment"
             :comment="comment"
-            :key="`Comment${comment.created}`"
+            :key="`Comment${comment.id}`"
             @update="updateComment"
             @delete="deleteComment"
         />
@@ -53,12 +59,26 @@ function deleteComment(comment: Comment) {
 </script>
 
 <style lang="scss">
+    @use '@/styles/mixins' as *;
+
     .comment-list {
         text-align: center;
 
-        &__add-comment {
-            width: 300px;
+        &__top {
+            position: relative;
             margin-bottom: var(--spacing);
+        }
+
+        &__count {
+            @include vertical-align();
+            right: 15px;
+
+            // TODO: use variable
+            color: #999;
+        }
+
+        &__add-comment {
+            width: 250px;
         }
 
         &__comment {

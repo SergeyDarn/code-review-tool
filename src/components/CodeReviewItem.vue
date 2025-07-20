@@ -6,6 +6,10 @@
         <div class="code-review-item__name">
             {{ props.review.name || CodeReviewModel.getDefaultReviewTitle() }}
         </div>
+
+        <div class="code-review-item__count">
+            Комментариев: {{ props.review.commentsCount }}
+        </div>
     </router-link>
 </template>
 
@@ -25,7 +29,7 @@ const props = defineProps<Props>();
         display: block;
         padding: 20px;
         // TODO: move to a variable
-        border: 1px solid darkgray;
+        border: 1px solid #777;
         border-radius: 8px;
         transition: border-color 0.3s ease-in;
 
@@ -34,7 +38,13 @@ const props = defineProps<Props>();
         }
 
         &__name {
+            margin-bottom: 10px;
             font-size: 22px;
+        }
+
+        &__count {
+            // TODO: move to a variable
+            color: #999
         }
     }
 </style>

@@ -3,8 +3,8 @@
         <CommentTypeList
             class="comment-type-filter__list"
             :list="types"
-            :active-types="activeCommentTypes"
-            @click="toggleActiveCommentType($event.type)"
+            :active-types="activeFilters"
+            @click="toggleCommentTypeFilter($event.type)"
         /> 
     </div>
 </template>
@@ -22,12 +22,12 @@ import CommentTypeList from '@/components/CommentTypeList.vue';
 const types = CommentTypeModel.getViewItems();
 
 const {
-    activeCommentType,
-    toggleActiveCommentType
+    commentTypeFilter,
+    toggleCommentTypeFilter
 } = useCodeReviewStore();
 
-const activeCommentTypes = computed<CommentType[]>(() => {
-    const type = activeCommentType.value;
+const activeFilters = computed<CommentType[]>(() => {
+    const type = commentTypeFilter.value;
  
     return type ? [type] : [];
 })

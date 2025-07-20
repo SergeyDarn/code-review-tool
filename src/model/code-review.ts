@@ -12,7 +12,8 @@ export default class CodeReviewModel {
         return {
             id: uuidv4(),
             name: '',
-            comments: [Comment.getNewComment()]
+            comments: [Comment.getNewComment()],
+            commentsCount: 1
         }
     }
 

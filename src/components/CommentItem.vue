@@ -1,44 +1,61 @@
 <template>
     <div class="comment-item">
-        <div class="comment-item__i">
-            <Button
-                class="comment-item__delete"
-                icon="pi pi-trash"
-                aria-label="Удалить комментарий"
-                size="small"
-                severity="danger"
-                variant="outlined"
-                @click="deleteComment"
+        <Button
+            v-if="comment.isOpen"
+            class="comment-item__delete"
+            icon="pi pi-trash"
+            aria-label="Удалить комментарий"
+            size="small"
+            severity="danger"
+            variant="outlined"
+            @click="deleteComment"
+        />
+
+        <div class="comment-item__top">
+            <FloatLabel
+                class="comment-item__type-wrapper"
+                variant="on"
+            >
+                <Select
+                    v-model="comment.type"
+                    class="comment-item__type"
+                    option-label="label"
+                    option-value="type"
+                    input-id="commentType"
+                    size="small"
+                    :options="CommentType.getViewItems()"
+                />
+
+                <label
+                    class="comment-item__type-label"
+                    for="commentType"
+                >
+                    Тип
+                </label>
+            </FloatLabel>
+
+            <InputText 
+                v-model="comment.name"
+                class="comment-item__name" 
+                placeholder="Суть комментария"
+                size="large"
             />
 
-            <div class="comment-item__top">
-                <FloatLabel
-                    class="comment-item__type-wrapper"
-                    variant="on"
-                >
-                    <Select
-                        v-model="comment.type"
-                        class="comment-item__type"
-                        option-label="label"
-                        option-value="type"
-                        input-id="commentType"
-                        size="small"
-                        :options="CommentType.getViewItems()"
-                    />
+            <Button
+                class="comment-item__toggle"
+                :icon="`pi ${comment.isOpen ? 'pi-angle-up' : 'pi-angle-down'}`"
+                aria-label="Открыть или закрыть комментарий"
+                size="small"
+                variant="outlined"
+                severity="secondary"
+                @click="comment.isOpen = !comment.isOpen"
+            />
+        </div>
 
-                    <label class="comment-item__type-label">
-                        Тип
-                    </label>
-                </FloatLabel>
-
-                <InputText 
-                    v-model="comment.name"
-                    class="comment-item__name" 
-                    placeholder="Суть комментария"
-                    size="large"
-                />
-            </div>
-
+        <div
+            v-if="comment.isOpen"
+            class="comment-item__content"
+        >
             <FloatLabel
                 class="comment-item__file-wrapper"
                 variant="on"
@@ -85,7 +102,7 @@
                     Комментарий
                 </label>
             </FloatLabel>
- 
+
             <CodeTextarea
                 v-if="showGoodCode"
                 v-model="comment.goodCode"
@@ -157,7 +174,6 @@ const fileExtension = computed<string>(() => {
     return getExtensionFromFile(comment.value.file);
 })
 
-
 function deleteComment() {
     emit('delete', comment.value);
 }
@@ -199,26 +215,34 @@ watch(comment, (updateComment) => {
             width: 100%;
         }
 
-        &__i {
+        &__top {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        &__content {
             display: flex;
             flex-direction: column;
             gap: var(--gap);
 
+            margin-top: var(--gap);
+            
             // TODO: create mixins
             @media (min-width: 900px) {
                 max-width: 80%;
             }
         }
-
-        &__top {
-            display: flex;
-            align-items: center;
+        
+        &__toggle {
+            @include vertical-align(); 
+            right: -5px;
         }
 
         &__delete {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            right: var(--gap);
+            bottom: var(--gap); 
         }
 
         &__type {

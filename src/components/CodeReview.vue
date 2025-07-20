@@ -30,16 +30,20 @@
         </div>
 
         <div class="code-review__actions">
-            <CommentTypeFilters />     
+            <CommentTypeFilters />
         </div>
 
-        <CommentList
-            class="code-review__comments"
-            :comments="processedComments"
-            @add-comment="addComment"
-            @update-comment="updateComment"
-            @delete-comment="deleteComment"
-        />
+        <div class="code-review__comments-wr">
+            <Search class="code-review__search" />
+
+            <CommentList
+                class="code-review__comments"
+                :comments="processedComments"
+                @add-comment="addComment"
+                @update-comment="updateComment"
+                @delete-comment="deleteComment"
+            />
+        </div>
     </div>
 </template>
 
@@ -55,7 +59,7 @@ import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import CommentList from './CommentList.vue';
 import CommentTypeFilters from '@/components/CommentTypeFilters.vue';
-
+import Search from '@/components/Search.vue';
 
 const router = useRouter();
 
@@ -65,7 +69,7 @@ const {
 
     addComment,
     updateComment,
-    deleteComment
+    deleteComment,
 } = useCodeReviewStore();
 
 function deleteReview() {
@@ -103,6 +107,10 @@ watch(codeReview, (updatedReview) => {
         }
 
         &__actions {
+            display: flex;
+            gap: var(--spacing);
+            flex-direction: column;
+
             margin-bottom: calc(var(--spacing) * 2);
         }
 
@@ -125,6 +133,17 @@ watch(codeReview, (updatedReview) => {
             max-width: 70%;
             
             text-align: center;
+        }
+
+        &__comments-wr {
+            position: relative;
+        }
+
+        &__search {
+            position: absolute;
+            top: 1px;
+            left: 0;
+            z-index: 2;
         }
     }
 </style>

@@ -2,7 +2,8 @@ import { computed, ref, type Ref } from 'vue';
 import type { CodeReview, CommentType, Comment } from '@/abstracts';
 
 const codeReview = ref<CodeReview | null>(null);
-const activeCommentType = ref<CommentType | null>(null);
+const commentTypeFilter = ref<CommentType | null>(null);
+const searchValue = ref<string>('');
 
 export default function useCodeReviewStore() {
     const processedComments = computed<Comment[]>(() => {
@@ -10,26 +11,33 @@ export default function useCodeReviewStore() {
             return [];
         }
 
-        if (!activeCommentType.value) {
-            return codeReview.value.comments;
-        }
-
-        const filteredComments = codeReview.value.comments.filter(comment => {
-            return isCommentTypeActive(comment.type);
-        });
-
-        return filteredComments;
+        return codeReview.value.comments.filter(filterComment);
     });
+
 
     function setCodeReview(review: CodeReview | null) {
         codeReview.value = review;
     }
 
+    function setCommentsCount() {
+        codeReview.value!.commentsCount = codeReview.value!.comments.length;
+    }
+
+    function toggleCommentTypeFilter(type: CommentType) {
+        commentTypeFilter.value = isCommentTypeActive(type) ? null : type;
+    }
+
+    function setSearch(value: string) {
+        searchValue.value = value;
+    }
+
+
     function addComment(commentToAdd: Comment) {
-        const type = activeCommentType.value ? activeCommentType.value : commentToAdd.type;
+        const type = commentTypeFilter.value ? commentTypeFilter.value : commentToAdd.type;
         const comment = { ...commentToAdd, type };
 
         codeReview.value!.comments = [comment, ...codeReview.value!.comments];
+        setCommentsCount();
     }
 
     function updateComment(updatedComment: Comment) {
@@ -49,27 +57,44 @@ export default function useCodeReviewStore() {
         codeReview.value!.comments = codeReview.value!.comments.filter(comment => {
             return comment.id !== commentToDelete.id;
         })
+        setCommentsCount();
     }
 
-    function toggleActiveCommentType(type: CommentType) {
-        activeCommentType.value = isCommentTypeActive(type) ? null : type;
+
+
+    function filterComment(comment: Comment) {
+        const commentTypeMatch = !commentTypeFilter.value || isCommentTypeActive(comment.type);
+
+        const fileMatch = matchSearch(comment.file);
+        const nameMatch = matchSearch(comment.name);
+        const commentTextMatch = matchSearch(comment.comment);
+        const searchMatch = fileMatch || nameMatch || commentTextMatch;
+
+        return commentTypeMatch && searchMatch;
+    }
+
+    function matchSearch(value: string) {
+        return value.toLowerCase().includes(searchValue.value.toLowerCase());
     }
 
     function isCommentTypeActive(type: CommentType) {
-        return activeCommentType.value === type;
+        return commentTypeFilter.value === type;
     }
 
 
     return {
         codeReview: codeReview as Ref<CodeReview>,
         processedComments,
-        activeCommentType,
+        commentTypeFilter,
+        searchValue,
 
         setCodeReview,
 
         addComment,
         deleteComment,
         updateComment,
-        toggleActiveCommentType,
+
+        toggleCommentTypeFilter,
+        setSearch
     }
 }

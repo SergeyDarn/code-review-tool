@@ -5,6 +5,7 @@ export default class CommentTypeModel {
         [CommentType.architecture]: 'Архитектура',
         [CommentType.optimization]: 'Оптимизация',
         [CommentType.codeStyle]: 'Код стили',
+        [CommentType.canBeBetter]: 'Можно лучше',
         [CommentType.minor]: 'Мелочь',
         [CommentType.question]: 'Вопрос',
         [CommentType.goodCode]: 'Красиво',
@@ -15,6 +16,7 @@ export default class CommentTypeModel {
         [CommentType.optimization]: 'var(--p-yellow-500)',
         [CommentType.codeStyle]: 'var(--p-indigo-500)',
         [CommentType.minor]: 'var(--p-slate-500)',
+        [CommentType.canBeBetter]: 'var(--p-amber-500)',
         [CommentType.question]: 'var(--p-cyan-500)',
         [CommentType.goodCode]: 'var(--p-green-500)',
     }

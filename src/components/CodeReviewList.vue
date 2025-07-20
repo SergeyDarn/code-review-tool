@@ -45,7 +45,7 @@ function startReview() {
 <style lang="scss" scoped>
     .code-review-list {
         &__new-review {
-            --p-button-lg-font-size: 24px;
+            --p-button-lg-font-size: 20px;
 
             width: 250px;
         }

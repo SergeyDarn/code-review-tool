@@ -7,6 +7,7 @@ export interface CodeReview extends CodeReviewBase {
 export interface CodeReviewBase {
     id: CodeReviewId
     name: string
+    commentsCount: number
 }
 
 export interface Comment {
@@ -21,6 +22,8 @@ export interface Comment {
 
     created: string
     updated: string
+
+    isOpen: boolean
 }
 
 export enum CommentType {
@@ -28,6 +31,7 @@ export enum CommentType {
 
     architecture = 'architecture',
     codeStyle = 'codeStyle',
+    canBeBetter = 'canBeBetter',
     optimization = 'optimization',
     question = 'question',
     goodCode = 'goodCode',

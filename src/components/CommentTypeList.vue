@@ -41,5 +41,6 @@ function click(type: CommentTypeView) {
     .comment-type-list {
         display: flex;
         gap: var(--spacing-small);
+        flex-wrap: wrap;
     } 
 </style>
