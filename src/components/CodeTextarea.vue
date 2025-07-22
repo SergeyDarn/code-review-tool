@@ -61,7 +61,7 @@ const language = computed(() => {
         &__code {
             :deep(.code-area),
             :deep(.hljs) {
-                border-radius: var(--p-textarea-border-radius) !important;
+                border-radius: var(--p-inputtext-border-radius) !important;
             }
 
             :deep(code.hljs),
