@@ -24,7 +24,7 @@ const codeReviews = Object.values(CodeReviewStorage.getReviews()) as CodeReview[
 <style lang="scss">
     .home {
         &__title {
-            margin-bottom: var(--spacing); 
+            margin-bottom: var(--spacing-large); 
 
             font-size: 40px;
             text-align: center;

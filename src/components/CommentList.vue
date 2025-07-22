@@ -62,7 +62,9 @@ function deleteComment(comment: Comment) {
     @use '@/styles/mixins' as *;
 
     .comment-list {
-        text-align: center;
+        @media #{$from-tablet} {
+            text-align: center;
+        }
 
         &__top {
             position: relative;
@@ -73,8 +75,7 @@ function deleteComment(comment: Comment) {
             @include vertical-align();
             right: 15px;
 
-            // TODO: use variable
-            color: #999;
+            color: var(--text-color-dark);
         }
 
         &__add-comment {

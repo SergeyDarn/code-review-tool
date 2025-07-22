@@ -1,7 +1,46 @@
 a {
-  text-decoration: none;
+    text-decoration: none;
 
-  &:visited {
-    color: inherit;
+    &:visited {
+       color: inherit;
+    }
+}
+
+
+$form-fields: "inputtext", "textarea", "select";
+
+@each $form-field in $form-fields {
+  .p-#{$form-field} {
+      --p-#{$form-field}-sm-padding-x: 14px;
+
+
+      --p-#{$form-field}-background: var(--form-field-background-color);
+      --p-#{$form-field}-border-color: var(--border-color);
+
+      --p-#{$form-field}-hover-border-color: var(--border-color);
+      --p-#{$form-field}-focus-border-color: var(--border-color);
+      --p-#{$form-field}-focus-ring-width: 0;
   }
+}
+
+.p-select-list {
+    --p-select-list-padding: 0;
+}
+
+.p-select-option {
+    --p-select-option-padding: 10px 8px;
+}
+
+.p-select-option-label {
+    font-size: 14px;
+}
+
+.p-select-overlay {
+    --p-select-overlay-background: var(--form-field-background-color);
+
+    margin-top: 5px !important;
+}
+
+.p-floatlabel-on label {
+    --p-floatlabel-on-active-background: transparent;
 }

@@ -28,8 +28,9 @@ const props = defineProps<Props>();
     .code-review-item {
         display: block;
         padding: 20px;
-        // TODO: move to a variable
-        border: 1px solid #777;
+       
+        background-color: var(--item-background-color);
+        border: 1px solid var(--border-color);
         border-radius: 8px;
         transition: border-color 0.3s ease-in;
 
@@ -43,8 +44,7 @@ const props = defineProps<Props>();
         }
 
         &__count {
-            // TODO: move to a variable
-            color: #999
+            color: var(--text-color-dark);
         }
     }
 </style>

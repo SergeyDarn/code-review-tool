@@ -1,0 +1,22 @@
+$breakpoint-desktop: 1250px;
+$breakpoint-small-desktop: 1024px;
+$breakpoint-tablet-landscape: 991px;
+$breakpoint-tablet: 768px;
+
+$desktop: 'screen and (min-width: #{$breakpoint-desktop})';
+$from-desktop: 'screen and (max-width: #{$breakpoint-desktop})';
+$till-desktop: 'screen and (max-width: #{$breakpoint-desktop - 1})';
+
+$small-desktop: 'screen and (min-width: #{$breakpoint-small-desktop}) and (max-width: #{$breakpoint-desktop - 1})';
+$from-small-desktop: 'screen and (max-width: #{$breakpoint-small-desktop})';
+$till-small-desktop: 'screen and (max-width: #{$breakpoint-small-desktop - 1})';
+
+$tablet-landscape: 'screen and (min-width: #{$breakpoint-tablet-landscape}) and (max-width: #{$breakpoint-small-desktop - 1})';
+$from-tablet-landscape: 'screen and (min-width: #{$breakpoint-tablet-landscape})';
+$till-tablet-landscape: 'screen and (max-width: #{$breakpoint-tablet-landscape - 1})';
+
+$tablet: 'screen and (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-tablet-landscape - 1})';
+$from-tablet: 'screen and (min-width: #{$breakpoint-tablet})';
+$till-tablet: 'screen and (max-width: #{$breakpoint-tablet - 1})';
+
+

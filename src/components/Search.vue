@@ -3,7 +3,9 @@
         <InputText 
             v-model="searchValue"
             class="search__input" 
+            id="search"
             placeholder="Поиск"
+            autocomplete="off"
             size="small"
         />
     </div>
@@ -14,6 +16,7 @@ import { computed } from 'vue';
 import useCodeReviewStore from '@/store/use-code-review-store';
 
 import InputText from 'primevue/inputtext';
+import FloatLabel from 'primevue/floatlabel';
 
 const { searchValue: searchValueStore, setSearch } = useCodeReviewStore();
 
@@ -28,9 +31,17 @@ const searchValue = computed({
 </script>
 
 <style lang="scss" scoped>
+    @use '@/styles/mixins' as *;
+
     .search {
         &__input {
-            width: 165px;
+            @media #{$till-tablet} {
+                width: 250px;
+            }
+
+            @media #{$from-tablet} {
+                width: 165px;
+            }
         }
     }
 </style>

@@ -59,9 +59,19 @@ const language = computed(() => {
         }
 
         &__code {
+            :deep(.code-area),
+            :deep(.hljs) {
+                border-radius: var(--p-textarea-border-radius) !important;
+            }
+
+            :deep(code.hljs),
+            :deep(textarea) {
+                padding-left: 15px !important;
+            }
+
             :deep(.code-area) {
-                border: 1px solid var(--p-inputtext-border-color);
-                border-radius: var(--p-inputtext-border-radius) !important;
+                background-color: var(--form-field-background-color);
+                border: 1px solid var(--border-color);
             }
         }
     }    

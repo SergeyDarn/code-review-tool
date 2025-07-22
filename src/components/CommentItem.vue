@@ -12,27 +12,15 @@
         />
 
         <div class="comment-item__top">
-            <FloatLabel
-                class="comment-item__type-wrapper"
-                variant="on"
-            >
-                <Select
-                    v-model="comment.type"
-                    class="comment-item__type"
-                    option-label="label"
-                    option-value="type"
-                    input-id="commentType"
-                    size="small"
-                    :options="CommentType.getViewItems()"
-                />
-
-                <label
-                    class="comment-item__type-label"
-                    for="commentType"
-                >
-                    Тип
-                </label>
-            </FloatLabel>
+            <Select
+                v-model="comment.type"
+                class="comment-item__type"
+                option-label="label"
+                option-value="type"
+                input-id="commentType"
+                size="small"
+                :options="CommentType.getViewItems()"
+            />
 
             <InputText 
                 v-model="comment.name"
@@ -46,7 +34,6 @@
                 :icon="`pi ${comment.isOpen ? 'pi-angle-up' : 'pi-angle-down'}`"
                 aria-label="Открыть или закрыть комментарий"
                 size="small"
-                variant="outlined"
                 severity="secondary"
                 @click="comment.isOpen = !comment.isOpen"
             />
@@ -56,24 +43,13 @@
             v-if="comment.isOpen"
             class="comment-item__content"
         >
-            <FloatLabel
-                class="comment-item__file-wrapper"
-                variant="on"
-            >
-                <InputText
-                    v-model="comment.file"
-                    class="comment-item__file"
-                    id="file"
-                    size="small"
-                />
-
-                <label
-                    class="comment-item__file-label"
-                    for="file"
-                >
-                    Файл
-                </label>
-            </FloatLabel>
+            <InputText
+                v-model="comment.file"
+                class="comment-item__file"
+                id="file"
+                placeholder="Файл"
+                size="small"
+            />
 
             <CodeTextarea
                 v-model="comment.badCode"
@@ -81,27 +57,16 @@
                 label="Код для улучшения"
             /> 
 
-            <FloatLabel
+            <Textarea
                 v-if="showComment"
-                class="comment-item__comment-wrapper"
-                variant="on"
-            >
-                <Textarea
-                    v-model="comment.comment"
-                    class="comment-item__comment"
-                    rows="3"
-                    id="comment"
-                    size="small"
-                    autoResize
-                />
-
-                <label
-                    class="comment-item__comment-label"
-                    for="comment"
-                >
-                    Комментарий
-                </label>
-            </FloatLabel>
+                v-model="comment.comment"
+                class="comment-item__comment"
+                rows="3"
+                id="comment"
+                size="small"
+                placeholder="Комментарий"
+                autoResize
+            />
 
             <CodeTextarea
                 v-if="showGoodCode"
@@ -124,7 +89,7 @@
 
                 <Button
                     v-if="!showGoodCode"
-                    class="comment-item__button"
+                    class="comment-item__button _secondary"
                     label="Добавить пример кода"
                     size="small"
                     severity="secondary" 
@@ -183,20 +148,6 @@ watch(comment, (updateComment) => {
 }, { deep: true });
 </script>
 
-<style lang="scss">
-    .p-select-list {
-        --p-select-list-padding: 5px 0;
-    }
-
-    .p-select-option {
-        --p-select-option-padding: 10px 8px;
-    }
-
-    .p-select-option-label {
-        font-size: 14px;
-    }
-</style>
-
 <style lang="scss" scoped>
     @use '@/styles/mixins' as *;
 
@@ -206,8 +157,8 @@ watch(comment, (updateComment) => {
         position: relative;
         padding: 15px 20px;
 
-        // TODO: move to variables
-        border: 1px solid #52525b;
+        background-color: var(--item-background-color);
+        border: 1px solid var(--border-color-dark);
         border-radius: 8px;
 
         &__file,
@@ -227,14 +178,20 @@ watch(comment, (updateComment) => {
             gap: var(--gap);
 
             margin-top: var(--gap);
-            
-            // TODO: create mixins
-            @media (min-width: 900px) {
+          
+            @media #{$till-tablet} {
+               max-width: 85%; 
+            }
+
+            @media #{$from-tablet} { 
                 max-width: 80%;
             }
         }
         
         &__toggle {
+            --p-button-secondary-background: var(--material-level-3);
+            --p-button-secondary-border-color: var(--material-level-3);
+
             @include vertical-align(); 
             right: -5px;
         }
@@ -271,6 +228,11 @@ watch(comment, (updateComment) => {
                 / 2
                 - var(--gap)
             );
+
+            &._secondary {
+                --p-button-secondary-background: var(--material-level-3);
+                --p-button-secondary-border-color: var(--material-level-3);
+            }
         }
     }
 </style>

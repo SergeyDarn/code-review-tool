@@ -1,12 +1,27 @@
 <template>
-    <div class="code-review-list">
-        <div class="code-review-list__list">
+    <div
+        class="code-review-list"
+        :class="{
+            '_empty': !props.reviews.length
+        }"
+    >
+        <div 
+            v-if="props.reviews.length"
+            class="code-review-list__list"
+        >
             <CodeReviewItem
                 v-for="review in props.reviews"
                 class="code-review-list__item"
                 :review="review"
                 :key="`CodeReview{review.id}`"
             />
+        </div>
+
+        <div
+            v-else
+            class="code-review-list__empty"
+        >
+            У тебя пока нет ревью :(
         </div>
 
         <Button 
@@ -44,10 +59,22 @@ function startReview() {
 
 <style lang="scss" scoped>
     .code-review-list {
+        &._empty {
+            text-align: center;
+        }
+
         &__new-review {
             --p-button-lg-font-size: 20px;
 
             width: 250px;
+        }
+
+        &__empty {
+            margin-bottom: 30px;
+
+            font-size: 22px;
+            line-height: 1.4;
+            color: var(--text-color-dark);
         }
 
         &__item {

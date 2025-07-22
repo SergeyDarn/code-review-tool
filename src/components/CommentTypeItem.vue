@@ -46,8 +46,7 @@ function click() {
 
         @include pointer();    
 
-        // TODO: use variable
-        color: #fff;
+        color: var(--text-color);
         border: 1px solid var(--color);
         background-color: transparent;
 

@@ -7,7 +7,6 @@
                 aria-label="Вернуться на главную"
                 size="small"
                 severity="secondary"
-                variant="outlined"
                 @click="goHome"
             />
         
@@ -71,7 +70,6 @@ const {
     updateComment,
     deleteComment,
 } = useCodeReviewStore();
-
 function deleteReview() {
     CodeReviewStorage.removeReview(codeReview.value.id);
     goHome(); 
@@ -123,6 +121,11 @@ watch(codeReview, (updatedReview) => {
             right: 0;
         }
 
+        &__go-home {
+            --p-button-secondary-background: var(--item-background-color);
+            --p-button-secondary-border-color: var(--item-background-color);
+        }
+
         &__name {
             --p-inputtext-lg-font-size: 36px;
 
@@ -140,10 +143,16 @@ watch(codeReview, (updatedReview) => {
         }
 
         &__search {
-            position: absolute;
-            top: 1px;
-            left: 0;
-            z-index: 2;
+            @media #{$till-tablet} {
+                margin-bottom: var(--spacing);
+            }
+
+            @media #{$from-tablet} {
+                position: absolute;
+                top: 1px;
+                left: 0;
+                z-index: 2;
+            }
         }
     }
 </style>
