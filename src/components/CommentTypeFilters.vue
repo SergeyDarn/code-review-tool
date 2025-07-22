@@ -32,7 +32,3 @@ const activeFilters = computed<CommentType[]>(() => {
     return type ? [type] : [];
 })
 </script>
-
-<style lang="scss">
-
-</style>

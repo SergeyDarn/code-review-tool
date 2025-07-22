@@ -101,7 +101,7 @@ watch(codeReview, (updatedReview) => {
             position: relative;
 
             display: flex;
-            margin-bottom: calc(var(--spacing) * 2);
+            margin-bottom: var(--spacing-large);
         }
 
         &__actions {
@@ -109,7 +109,7 @@ watch(codeReview, (updatedReview) => {
             gap: var(--spacing);
             flex-direction: column;
 
-            margin-bottom: calc(var(--spacing) * 2);
+            margin-bottom: var(--spacing-large);
         }
 
         &__go-home,
@@ -122,8 +122,8 @@ watch(codeReview, (updatedReview) => {
         }
 
         &__go-home {
-            --p-button-secondary-background: var(--item-background-color);
-            --p-button-secondary-border-color: var(--item-background-color);
+            --p-button-secondary-background: var(--material-level-1);
+            --p-button-secondary-border-color: var(--material-level-1);
         }
 
         &__name {

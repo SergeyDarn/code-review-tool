@@ -16,7 +16,6 @@ import { computed } from 'vue';
 import useCodeReviewStore from '@/store/use-code-review-store';
 
 import InputText from 'primevue/inputtext';
-import FloatLabel from 'primevue/floatlabel';
 
 const { searchValue: searchValueStore, setSearch } = useCodeReviewStore();
 

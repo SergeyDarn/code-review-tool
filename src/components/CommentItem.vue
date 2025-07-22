@@ -109,7 +109,6 @@ import { getExtensionFromFile } from '@/utils/file';
 import { copyObject } from '@/utils/object';
 
 import Button from 'primevue/button';
-import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
 import Textarea from 'primevue/textarea';
@@ -159,7 +158,7 @@ watch(comment, (updateComment) => {
 
         background-color: var(--item-background-color);
         border: 1px solid var(--border-color-dark);
-        border-radius: 8px;
+        border-radius: var(--item-border-radius);
 
         &__file,
         &__comment {
