@@ -1,11 +1,22 @@
 import { computed, ref, type Ref } from 'vue';
-import type { CodeReview, CommentType, Comment } from '@/abstracts';
+import type { CodeReview, CommentType, Comment, CodeReviewBase } from '@/abstracts';
+import type { ToastServiceMethods } from 'primevue';
+
+import { downloadJson, readFile } from '@/utils/file';
+import CodeReviewStorage from '@/model/code-review-storage';
+import { useToast } from './use-toast';
+
+const codeReviews = ref<CodeReviewBase[]>([]);
 
 const codeReview = ref<CodeReview | null>(null);
 const commentTypeFilter = ref<CommentType | null>(null);
 const searchValue = ref<string>('');
 
-export default function useCodeReviewStore() {
+const REVIEW_IMPORT_ERROR = 'Не получилось импортировать ревью';
+const REVIEW_IMPORT_DUPLICATE_ERROR = 'Это ревью уже есть в списке';
+const REVIEW_IMPORT_SUCCESS = 'Ревью успешно импортировано';
+
+export default function useCodeReviewStore(toast: ToastServiceMethods | null = null) {
     const processedComments = computed<Comment[]>(() => {
         if (!codeReview.value) {
             return [];
@@ -60,6 +71,44 @@ export default function useCodeReviewStore() {
         setCommentsCount();
     }
 
+    function exportReview() {
+        downloadJson(
+            codeReview.value as CodeReview,
+            `review_${codeReview.value!.id}`
+        );
+    }
+
+    async function importReview(file: File) {
+        const { showError, showSuccess } = useToast(toast)
+
+        try {
+            const review = await readFile(file, true);
+
+            if (!review || !review.id || !review.comments) {
+                showError(REVIEW_IMPORT_ERROR);
+                return;
+            }
+
+            const isReviewAlreadyLoaded = codeReviews.value.some(codeReview => codeReview.id === review.id);
+
+            if (isReviewAlreadyLoaded) {
+                showError(REVIEW_IMPORT_DUPLICATE_ERROR);
+                return;
+            }
+
+            codeReviews.value.push(review);
+            CodeReviewStorage.addNewReview(review);
+            showSuccess(REVIEW_IMPORT_SUCCESS);
+        } catch (err) {
+            console.error(`${REVIEW_IMPORT_ERROR}: ${err}`)
+            showError(REVIEW_IMPORT_ERROR);
+        }
+    }
+
+
+    function loadReviews() {
+        codeReviews.value = Object.values(CodeReviewStorage.getReviews()) as CodeReviewBase[];
+    }
 
 
     function filterComment(comment: Comment) {
@@ -83,6 +132,7 @@ export default function useCodeReviewStore() {
 
 
     return {
+        codeReviews,
         codeReview: codeReview as Ref<CodeReview>,
         processedComments,
         commentTypeFilter,
@@ -93,6 +143,9 @@ export default function useCodeReviewStore() {
         addComment,
         deleteComment,
         updateComment,
+        exportReview,
+        importReview,
+        loadReviews,
 
         toggleCommentTypeFilter,
         setSearch

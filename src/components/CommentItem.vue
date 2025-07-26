@@ -154,7 +154,7 @@ watch(comment, (updateComment) => {
         --gap: 15px;
 
         position: relative;
-        padding: 15px 20px;
+        padding: var(--spacing-small-medium) var(--spacing);
 
         background-color: var(--item-background-color);
         border: 1px solid var(--border-color-dark);

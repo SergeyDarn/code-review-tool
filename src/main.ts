@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 
 import PrimeVue from 'primevue/config';
+import ToastService from 'primevue/toastservice';
 import ThemePreset from './theme';
 
 const app = createApp(App)
@@ -14,5 +15,6 @@ app.use(PrimeVue, {
         preset: ThemePreset
     }
 });
+app.use(ToastService);
 
 app.mount('#app')

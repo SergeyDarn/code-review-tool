@@ -6,6 +6,15 @@ a {
     }
 }
 
+body {
+    margin: var(--spacing-medium) var(--spacing);
+
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    font-family: "montserrat", sans-serif;
+}
+
 
 $form-fields: "inputtext", "textarea", "select";
 

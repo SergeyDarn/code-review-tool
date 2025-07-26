@@ -1,15 +1,23 @@
 <template>
     <div class="comment-list">
         <div class="comment-list__top">
-            <div class="comment-list__count">
-                Всего: {{ props.comments.length }}
-            </div> 
+            <div class="comment-list__top-left">
+                <slot name="top-left" />
+            </div>
 
             <Button
                 class="comment-list__add-comment"
                 label="Добавить комментарий"
                 @click="addComment"
             />
+
+            <div class="comment-list__top-right">
+                <div class="comment-list__count">
+                    Всего: {{ props.comments.length }}
+                </div> 
+
+                <slot name="top-right" />
+            </div>
         </div>
 
         <CommentItem
@@ -52,13 +60,12 @@ function addComment() {
 function updateComment(comment: Comment) {
     emit('update-comment', comment);
 }
-
 function deleteComment(comment: Comment) {
     emit('delete-comment', comment);
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     @use '@/styles/mixins' as *;
 
     .comment-list {
@@ -69,17 +76,40 @@ function deleteComment(comment: Comment) {
         &__top {
             position: relative;
             margin-bottom: var(--spacing);
+
+            display: flex;
+            justify-content: space-between;
+
+            @media #{$till-tablet} {
+                flex-wrap: wrap;
+            }
         }
 
-        &__count {
-            @include vertical-align();
-            right: 15px;
+        &__top-left {
+            @media #{$till-tablet} {
+                margin-bottom: var(--spacing);
+                width: 100%;
+            }
+        }
 
-            color: var(--text-color-dark);
+        &__top-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-small-medium);
+
+            margin-right: var(--spacing-small-medium);
         }
 
         &__add-comment {
             width: 250px;
+
+            @media #{from-tablet} {
+                @include horizontal-align();
+            }
+        }
+
+        &__count {
+            color: var(--text-color-dark);
         }
 
         &__comment {

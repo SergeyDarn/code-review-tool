@@ -33,15 +33,29 @@
         </div>
 
         <div class="code-review__comments-wr">
-            <Search class="code-review__search" />
-
             <CommentList
                 class="code-review__comments"
                 :comments="processedComments"
                 @add-comment="addComment"
                 @update-comment="updateComment"
                 @delete-comment="deleteComment"
-            />
+            >
+                <template #top-left>
+                    <Search class="code-review__search" />
+                </template>
+
+                <template #top-right>
+                    <Button
+                        class="code-review__export"
+                        icon="pi pi-download"
+                        aria-label="Экспортировать json с ревью"
+                        size="small"
+                        severity="secondary"
+                        variant="outlined"
+                        @click="exportReview"
+                    />
+                </template>
+            </CommentList>
         </div>
     </div>
 </template>
@@ -69,6 +83,8 @@ const {
     addComment,
     updateComment,
     deleteComment,
+
+    exportReview
 } = useCodeReviewStore();
 function deleteReview() {
     CodeReviewStorage.removeReview(codeReview.value.id);
@@ -101,7 +117,6 @@ watch(codeReview, (updatedReview) => {
             position: relative;
 
             display: flex;
-            margin-bottom: var(--spacing-large);
         }
 
         &__actions {
@@ -109,7 +124,7 @@ watch(codeReview, (updatedReview) => {
             gap: var(--spacing);
             flex-direction: column;
 
-            margin-bottom: var(--spacing-large);
+            margin: var(--spacing-medium) 0;
         }
 
         &__go-home,
@@ -127,8 +142,6 @@ watch(codeReview, (updatedReview) => {
         }
 
         &__name {
-            --p-inputtext-lg-font-size: 36px;
-
             @include input-without-border();
 
             display: block;
@@ -136,23 +149,18 @@ watch(codeReview, (updatedReview) => {
             max-width: 70%;
             
             text-align: center;
+
+            @media #{$till-tablet} {
+                --p-inputtext-lg-font-size: 28px;
+            }
+
+            @media #{$from-tablet} {
+                --p-inputtext-lg-font-size: 36px;
+            }
         }
 
         &__comments-wr {
             position: relative;
-        }
-
-        &__search {
-            @media #{$till-tablet} {
-                margin-bottom: var(--spacing);
-            }
-
-            @media #{$from-tablet} {
-                position: absolute;
-                top: 1px;
-                left: 0;
-                z-index: 2;
-            }
         }
     }
 </style>

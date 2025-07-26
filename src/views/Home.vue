@@ -4,21 +4,22 @@
             Код-ревью  
         </div>
 
-        <CodeReviewList
-            class="home__reviews"
-            :reviews="codeReviews"
-        />
+        <CodeReviewList class="home__reviews" />
     </div>
 </template>
 
 <script setup lang="ts">
-import type { CodeReview } from '@/abstracts';
-
-import CodeReviewStorage from '@/model/code-review-storage';
+import { onMounted } from 'vue';
+import useCodeReviewStore from '@/store/use-code-review-store';
 
 import CodeReviewList from '@/components/CodeReviewList.vue';
 
-const codeReviews = Object.values(CodeReviewStorage.getReviews()) as CodeReview[];
+const { loadReviews } = useCodeReviewStore();
+
+onMounted(() => {
+   loadReviews(); 
+})
+
 </script>
 
 <style lang="scss">
