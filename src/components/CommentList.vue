@@ -103,7 +103,7 @@ function deleteComment(comment: Comment) {
         &__add-comment {
             width: 250px;
 
-            @media #{from-tablet} {
+            @media #{$from-tablet} {
                 @include horizontal-align();
             }
         }
