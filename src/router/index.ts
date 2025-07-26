@@ -1,6 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
 import { Page } from '@/abstracts'
+import { createRouter, createWebHistory } from 'vue-router'
+
+import Home from '../views/Home.vue'
+import CodeReviewPage from '../views/CodeReviewPage.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,8 +15,8 @@ const router = createRouter({
         {
             path: `${Page.codeReview}/:reviewId`,
             name: 'codeReview',
-            component: () => import('../views/CodeReviewPage.vue')
-        }
+            component: CodeReviewPage,
+        },
         // {
         //     path: '/about',
         //     name: 'about',
