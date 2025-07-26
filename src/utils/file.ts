@@ -18,7 +18,7 @@ export function downloadJson(
 
     const el = document.createElement('a');
     el.setAttribute('href', dataHref);
-    el.setAttribute('download', fileName + '.json');
+    el.setAttribute('download', `${fileName}.json`);
 
     document.body.appendChild(el);
     el.click();
