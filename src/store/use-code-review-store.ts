@@ -72,9 +72,11 @@ export default function useCodeReviewStore(toast: ToastServiceMethods | null = n
     }
 
     function exportReview() {
+        const name = codeReview.value!.name || codeReview.value!.id;
+
         downloadJson(
             codeReview.value as CodeReview,
-            `review_${codeReview.value!.id}`
+            `Ревью ${name}`
         );
     }
 
