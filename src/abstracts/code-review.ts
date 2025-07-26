@@ -28,10 +28,11 @@ export interface Comment {
 
 export enum CommentType {
     minor = 'minor',
+    major = 'major',
+    canBeBetter = 'canBeBetter',
 
     architecture = 'architecture',
     codeStyle = 'codeStyle',
-    canBeBetter = 'canBeBetter',
     optimization = 'optimization',
     question = 'question',
     goodCode = 'goodCode',
