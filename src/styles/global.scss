@@ -23,6 +23,8 @@ $form-fields: "inputtext", "textarea", "select";
       --p-#{$form-field}-sm-padding-x: 14px;
 
 
+      --p-#{$form-field}-color: var(--text-color);
+      --p-#{$form-field}-placeholder-color: var(--label-color);
       --p-#{$form-field}-background: var(--form-field-background-color);
       --p-#{$form-field}-border-color: var(--border-color);
 
@@ -38,6 +40,18 @@ $form-fields: "inputtext", "textarea", "select";
 
 .p-select-option {
     --p-select-option-padding: 10px 8px;
+
+    --p-select-option-color: var(--text-color);
+    --p-select-option-selected-color: var(--text-color);
+    --p-select-option-focus-color: var(--text-color);
+    --p-select-option-selected-focus-color: var(--text-color);
+    --p-select-option-selected-background: color-mix(in srgb, var(--primary-color), transparent 84%);
+    --p-select-option-selected-focus-background: color-mix(in srgb, var(--primary-color), transparent 76%);
+    --p-select-option-focus-background: var(--dark-background); 
+}
+
+.p-select-dropdown {
+    --p-select-dropdown-color: var(--label-color);
 }
 
 .p-select-option-label {
@@ -46,8 +60,43 @@ $form-fields: "inputtext", "textarea", "select";
 
 .p-select-overlay {
     --p-select-overlay-background: var(--form-field-background-color);
+    --p-select-overlay-border-color: transparent;
 
     margin-top: 5px !important;
+}
+
+.p-button {
+    --p-button-primary-color: var(--text-color);
+    --p-button-primary-hover-color: var(--text-color);
+    --p-button-primary-background: var(--primary-color);
+    --p-button-primary-border-color: var(--primary-color);
+    --p-button-primary-hover-background: var(--primary-color-300);
+    --p-button-primary-hover-border-color: var(--primary-color-300);
+}
+
+.p-button-outlined {
+   &.p-button-secondary {
+       --p-button-outlined-secondary-border-color: var(--p-surface-700);
+       --p-button-outlined-secondary-color: var(--label-color);
+       --p-button-outlined-secondary-hover-background: rgba(255, 255, 255, 0.04);
+   }
+
+   &.p-button-danger {
+       --p-button-outlined-danger-border-color: var(--p-red-700);
+       --p-button-outlined-danger-color: var(--p-red-700);
+       --p-button-outlined-danger-hover-background: transparent;
+   }
+}
+
+.p-button-secondary {
+    --p-button-secondary-color: var(--p-surface-300);
+    --p-button-secondary-hover-color: var(--p-surface-300);
+    --p-button-secondary-hover-border-color: var(--secondary-button-background);
+    --p-button-secondary-hover-background: var(--secondary-button-background);
+}
+
+.p-floatlabel label {
+    --p-floatlabel-color: var(--label-color); 
 }
 
 .p-floatlabel-on label {
