@@ -59,7 +59,6 @@ function click() {
         &._active {
             background-color: var(--color);
           
-            color: var(--p-tag-primary-color);
             border-color: transparent;
         }
     }    

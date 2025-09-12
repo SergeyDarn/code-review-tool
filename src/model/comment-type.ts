@@ -14,7 +14,7 @@ export default class CommentTypeModel {
 
     private static colors: Record<CommentType, string> = {
         [CommentType.architecture]: 'var(--p-rose-500)',
-        [CommentType.optimization]: 'var(--p-yellow-500)',
+        [CommentType.optimization]: 'var(--p-amber-600)',
         [CommentType.codeStyle]: 'var(--p-indigo-500)',
         [CommentType.major]: 'var(--p-pink-500)',
         [CommentType.minor]: 'var(--p-slate-500)',
