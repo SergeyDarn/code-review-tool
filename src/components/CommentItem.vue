@@ -14,13 +14,35 @@
         <div class="comment-item__top">
             <Select
                 v-model="comment.type"
-                class="comment-item__type"
+                class="comment-item__type-select"
                 option-label="label"
                 option-value="type"
                 input-id="commentType"
                 size="small"
                 :options="CommentType.getViewItems()"
-            />
+            >
+                <template #value>
+                    <div
+                        class="comment-item__selected-type"
+                        :style="{
+                            '--color': CommentType.getColor(comment.type)
+                        }"
+                    >
+                        {{ CommentType.getLabel(comment.type) }}
+                    </div>
+                </template> 
+
+                <template #option="{ option }">
+                    <div 
+                        class="comment-item__type-item"
+                        :style="{
+                            '--color': option.color
+                        }"
+                    >
+                        {{ option.label }} 
+                    </div>
+                </template>
+            </Select>
 
             <InputText 
                 v-model="comment.name"
@@ -201,8 +223,31 @@ watch(comment, (updateComment) => {
             bottom: var(--gap); 
         }
 
-        &__type {
+        &__type-select {
             margin-right: var(--gap);
+        }
+
+        &__type-item,
+        &__selected-type {
+            position: relative;
+            padding-left: 17px;
+
+            &::before {
+                @include vertical-align();
+
+                content: ''; 
+                left: 0;
+                
+                width: 10px;
+                height: 10px;
+                
+                border-radius: 3px;
+                background-color: var(--color);
+            }
+        }
+
+        &__type-item {
+            font-size: 14px;
         }
 
         &__name {

@@ -1,2 +1,2 @@
-declare module 'simple-code-editor' { }
+declare module 'simple-code-editor';
 

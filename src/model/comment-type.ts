@@ -18,7 +18,7 @@ export default class CommentTypeModel {
         [CommentType.codeStyle]: 'var(--p-indigo-500)',
         [CommentType.major]: 'var(--p-pink-500)',
         [CommentType.minor]: 'var(--p-slate-500)',
-        [CommentType.canBeBetter]: 'var(--p-amber-500)',
+        [CommentType.canBeBetter]: 'var(--color-purple)',
         [CommentType.question]: 'var(--p-cyan-500)',
         [CommentType.goodCode]: 'var(--p-green-500)',
     }
@@ -34,5 +34,13 @@ export default class CommentTypeModel {
                 label: this.labels[type]
             }
         })
+    }
+
+    public static getLabel(type: CommentType) {
+        return this.labels[type];
+    }
+
+    public static getColor(type: CommentType) {
+        return this.colors[type];
     }
 }
